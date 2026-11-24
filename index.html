@@ -1,0 +1,2590 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<title>Smart Financial Service & Learning Centre</title>
+
+<style>
+:root{
+ --bg:#07111f;
+ --panel:#101f31;
+ --panel2:#172b40;
+ --cyan:#24d9ed;
+ --blue:#398cff;
+ --text:#edf6ff;
+ --muted:#9aadc0;
+ --green:#35d69a;
+ --red:#ff687b;
+ --border:#263e55;
+}
+
+*{
+ box-sizing:border-box;
+}
+
+html{
+ width:100%;
+ min-height:100%;
+ scroll-behavior:smooth;
+ -webkit-text-size-adjust:100%;
+}
+
+body{
+ margin:0;
+ min-width:320px;
+ width:100%;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+ overflow-x:hidden;
+}
+
+button,input,select{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+ touch-action:manipulation;
+ -webkit-tap-highlight-color:transparent;
+}
+
+input,select{
+ width:100%;
+ min-width:0;
+ max-width:100%;
+ background:#091725;
+ color:white;
+ border:1px solid var(--border);
+ border-radius:8px;
+ padding:12px;
+ outline:none;
+ font-size:16px;
+}
+
+input:focus,select:focus{
+ border-color:var(--cyan);
+}
+
+img,svg,video{
+ max-width:100%;
+}
+
+.app{
+ display:flex;
+ min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+ width:250px;
+ background:#0b1929;
+ border-right:1px solid var(--border);
+ padding:22px 14px;
+ position:fixed;
+ top:0;
+ bottom:0;
+ left:0;
+ overflow-y:auto;
+ z-index:30;
+}
+
+.logo{
+ font-size:17px;
+ font-weight:bold;
+ color:var(--cyan);
+ padding:12px 10px 24px;
+ line-height:1.5;
+}
+
+.logo small{
+ display:block;
+ color:var(--muted);
+ font-size:10px;
+}
+
+.nav-title{
+ color:#738ba3;
+ font-size:10px;
+ letter-spacing:2px;
+ padding:14px 10px 7px;
+}
+
+.nav-btn{
+ width:100%;
+ text-align:left;
+ color:#b9cadb;
+ background:transparent;
+ border:0;
+ padding:12px;
+ border-radius:9px;
+ margin:3px 0;
+ display:flex;
+ gap:12px;
+ align-items:center;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+ background:#17334a;
+ color:var(--cyan);
+}
+
+/* MAIN */
+
+.main{
+ margin-left:250px;
+ width:calc(100% - 250px);
+ min-width:0;
+ padding:26px;
+}
+
+.topbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:12px;
+ margin-bottom:28px;
+}
+
+.topbar h2{
+ margin:0;
+ font-size:21px;
+}
+
+.topbar p{
+ color:var(--muted);
+ font-size:12px;
+}
+
+.profile{
+ border:1px solid var(--border);
+ background:var(--panel);
+ padding:10px 14px;
+ border-radius:10px;
+ color:var(--cyan);
+ font-size:12px;
+}
+
+.mobile-menu-btn{
+ display:none;
+ background:#17334a;
+ border:1px solid #31516c;
+ color:var(--cyan);
+ padding:10px 13px;
+ border-radius:9px;
+ font-size:20px;
+}
+
+/* PAGES */
+
+.page{
+ display:none;
+ width:100%;
+ min-width:0;
+}
+
+.page.active{
+ display:block;
+}
+
+.heading{
+ margin-bottom:22px;
+}
+
+.heading h1{
+ font-size:27px;
+ margin:0 0 8px;
+ line-height:1.3;
+}
+
+.heading p{
+ color:var(--muted);
+ margin:0;
+ line-height:1.6;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:15px;
+}
+
+.module-grid{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:14px;
+}
+
+.card{
+ background:var(--panel);
+ border:1px solid var(--border);
+ border-radius:14px;
+ padding:19px;
+ min-width:0;
+ overflow-wrap:anywhere;
+}
+
+.stat-label{
+ font-size:12px;
+ color:var(--muted);
+}
+
+.stat-value{
+ font-size:25px;
+ font-weight:bold;
+ margin:12px 0;
+ overflow-wrap:anywhere;
+}
+
+.stat-note{
+ font-size:11px;
+ color:var(--green);
+}
+
+.section-title{
+ font-size:17px;
+ margin:25px 0 13px;
+}
+
+.module{
+ cursor:pointer;
+ transition:.2s;
+}
+
+.module:hover{
+ transform:translateY(-3px);
+ border-color:var(--cyan);
+}
+
+.module-icon{
+ font-size:27px;
+ margin-bottom:13px;
+}
+
+.module h3{
+ font-size:15px;
+ margin:0 0 8px;
+}
+
+.module p{
+ font-size:12px;
+ color:var(--muted);
+ line-height:1.6;
+}
+
+.btn{
+ border:0;
+ border-radius:8px;
+ padding:12px 15px;
+ background:var(--cyan);
+ color:#07111f;
+ font-weight:bold;
+ font-size:12px;
+ min-height:42px;
+}
+
+.btn.secondary{
+ background:#1d3b54;
+ color:white;
+ border:1px solid var(--border);
+}
+
+.btn.danger{
+ background:#542532;
+ color:white;
+}
+
+.form-grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:14px;
+}
+
+.field{
+ display:flex;
+ flex-direction:column;
+ gap:7px;
+ margin-bottom:13px;
+ min-width:0;
+}
+
+.field label{
+ font-size:12px;
+ color:var(--muted);
+}
+
+.result{
+ margin-top:15px;
+ background:#0b2c3b;
+ border:1px solid #176079;
+ border-radius:10px;
+ padding:16px;
+ line-height:1.8;
+ overflow-wrap:anywhere;
+}
+
+.result strong{
+ color:var(--cyan);
+}
+
+.muted{
+ color:var(--muted);
+}
+
+.table-wrap{
+ width:100%;
+ overflow-x:auto;
+ -webkit-overflow-scrolling:touch;
+}
+
+table{
+ width:100%;
+ min-width:450px;
+ border-collapse:collapse;
+ font-size:12px;
+}
+
+th,td{
+ text-align:left;
+ padding:12px;
+ border-bottom:1px solid var(--border);
+}
+
+th{
+ color:var(--muted);
+}
+
+.tag{
+ display:inline-block;
+ background:#163d39;
+ color:#55e5ae;
+ padding:5px 8px;
+ border-radius:20px;
+ font-size:10px;
+}
+
+.lesson{
+ margin-bottom:12px;
+}
+
+.lesson h3{
+ font-size:14px;
+}
+
+.lesson p{
+ font-size:12px;
+ color:var(--muted);
+ line-height:1.7;
+}
+
+.progress{
+ height:8px;
+ background:#25384c;
+ border-radius:20px;
+ overflow:hidden;
+}
+
+.progress div{
+ height:100%;
+ background:var(--cyan);
+ width:0%;
+ transition:width .3s;
+}
+
+.quiz-option{
+ display:block;
+ width:100%;
+ text-align:left;
+ margin:9px 0;
+ padding:12px;
+ background:#172b40;
+ color:white;
+ border:1px solid var(--border);
+ border-radius:8px;
+}
+
+.quiz-option:hover{
+ border-color:var(--cyan);
+}
+
+footer{
+ border-top:1px solid var(--border);
+ margin-top:35px;
+ padding:20px 5px;
+ color:var(--muted);
+ font-size:11px;
+ line-height:1.8;
+}
+
+/* MOBILE OVERLAY */
+
+#mobileOverlay{
+ display:none;
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.7);
+ z-index:29;
+}
+
+/* AI ASSISTANT */
+
+#aiAssistant{
+ position:fixed;
+ right:20px;
+ bottom:20px;
+ width:370px;
+ max-width:calc(100vw - 25px);
+ height:540px;
+ max-height:calc(100vh - 35px);
+ background:#0d1c2d;
+ border:1px solid var(--cyan);
+ border-radius:18px;
+ z-index:100;
+ display:none;
+ flex-direction:column;
+ overflow:hidden;
+ box-shadow:0 0 35px #00d9ed30;
+}
+
+.ai-header{
+ background:#132940;
+ padding:15px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.ai-brand{
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+
+.ai-orb{
+ width:38px;
+ height:38px;
+ border-radius:50%;
+ display:grid;
+ place-items:center;
+ background:linear-gradient(135deg,var(--blue),var(--cyan));
+ font-size:22px;
+}
+
+.ai-brand strong{
+ display:block;
+ color:var(--cyan);
+ font-size:12px;
+}
+
+.ai-brand small{
+ color:var(--muted);
+ font-size:10px;
+}
+
+.ai-close{
+ background:#29445d;
+ color:white;
+ border:0;
+ border-radius:7px;
+ padding:8px 12px;
+}
+
+.ai-status{
+ padding:9px 13px;
+ color:var(--green);
+ font-size:11px;
+ border-bottom:1px solid var(--border);
+}
+
+#aiMessages{
+ flex:1;
+ min-height:0;
+ overflow-y:auto;
+ padding:13px;
+ overscroll-behavior:contain;
+}
+
+.ai-message{
+ padding:11px;
+ border-radius:12px;
+ margin-bottom:10px;
+ font-size:12px;
+ line-height:1.7;
+ white-space:pre-wrap;
+ overflow-wrap:anywhere;
+}
+
+.ai-message.bot{
+ background:#19334b;
+ margin-right:20px;
+}
+
+.ai-message.user{
+ background:#07566b;
+ margin-left:20px;
+}
+
+.ai-controls,
+.ai-bottom{
+ display:flex;
+ gap:7px;
+ padding:8px;
+}
+
+.ai-controls button,
+.ai-bottom button{
+ flex:1;
+ min-width:0;
+ min-height:40px;
+ background:#183047;
+ color:white;
+ border:1px solid #31516c;
+ border-radius:8px;
+ padding:8px 4px;
+ font-size:11px;
+}
+
+.ai-input-area{
+ display:flex;
+ gap:7px;
+ padding:8px;
+}
+
+.ai-input-area input{
+ flex:1;
+ min-width:0;
+}
+
+.ai-input-area button{
+ background:var(--cyan);
+ border:0;
+ border-radius:8px;
+ padding:0 16px;
+ font-size:19px;
+ color:#07111f;
+}
+
+.ai-note{
+ text-align:center;
+ color:var(--muted);
+ font-size:9px;
+ padding:8px;
+}
+
+#aiFloating{
+ position:fixed;
+ right:22px;
+ bottom:22px;
+ width:58px;
+ height:58px;
+ border:0;
+ border-radius:50%;
+ background:linear-gradient(135deg,var(--blue),var(--cyan));
+ font-size:25px;
+ z-index:99;
+ box-shadow:0 0 25px #25d9ed70;
+}
+
+#aiFloating:focus-visible,
+button:focus-visible{
+ outline:2px solid white;
+ outline-offset:3px;
+}
+
+/* TABLET */
+
+@media(max-width:1050px){
+ .grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
+ .module-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
+ .sidebar{
+  width:220px;
+ }
+ .main{
+  margin-left:220px;
+  width:calc(100% - 220px);
+  padding:22px;
+ }
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+ .mobile-menu-btn{
+  display:block;
+  flex-shrink:0;
+ }
+
+ .sidebar{
+  display:block;
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  width:min(285px,85vw);
+  z-index:30;
+  overflow-y:auto;
+  transform:translateX(-105%);
+  transition:transform .25s ease;
+  box-shadow:10px 0 35px #0008;
+ }
+
+ .sidebar.mobile-open{
+  transform:translateX(0);
+ }
+
+ #mobileOverlay.visible{
+  display:block;
+ }
+
+ .main{
+  margin-left:0;
+  width:100%;
+  max-width:100%;
+  padding:15px;
+ }
+
+ .topbar{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:22px;
+ }
+
+ .topbar > div{
+  flex:1;
+  min-width:150px;
+ }
+
+ .topbar h2{
+  font-size:15px;
+  line-height:1.5;
+ }
+
+ .topbar p{
+  font-size:11px;
+ }
+
+ .profile{
+  width:100%;
+  text-align:center;
+ }
+
+ .heading h1{
+  font-size:23px;
+ }
+
+ .heading p{
+  font-size:13px;
+ }
+
+ .grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+ }
+
+ .module-grid{
+  grid-template-columns:1fr;
+  gap:11px;
+ }
+
+ .form-grid{
+  grid-template-columns:1fr;
+  gap:5px;
+ }
+
+ .card{
+  padding:15px;
+  border-radius:12px;
+ }
+
+ .stat-value{
+  font-size:21px;
+ }
+
+ .section-title{
+  font-size:16px;
+ }
+
+ .btn{
+  max-width:100%;
+  line-height:1.4;
+ }
+
+ footer{
+  font-size:10px;
+ }
+
+ #aiAssistant{
+  position:fixed;
+  right:8px;
+  left:8px;
+  bottom:8px;
+  width:auto;
+  max-width:none;
+  height:85dvh;
+  max-height:calc(100dvh - 16px);
+  border-radius:16px;
+ }
+
+ #aiMessages{
+  min-height:0;
+ }
+
+ .ai-input-area{
+  padding:8px;
+  gap:6px;
+ }
+
+ .ai-input-area input{
+  width:100%;
+  min-width:0;
+  font-size:16px;
+ }
+
+ .ai-bottom,
+ .ai-controls{
+  gap:5px;
+ }
+
+ .ai-bottom button,
+ .ai-controls button{
+  min-height:42px;
+  padding:8px 4px;
+ }
+
+ #aiFloating{
+  right:15px;
+  bottom:15px;
+  width:55px;
+  height:55px;
+ }
+}
+
+/* SMALL MOBILE */
+
+@media(max-width:380px){
+ .main{
+  padding:11px;
+ }
+ .grid{
+  grid-template-columns:1fr;
+ }
+ .heading h1{
+  font-size:21px;
+ }
+ .ai-bottom button{
+  font-size:10px;
+ }
+ .profile{
+  font-size:10px;
+ }
+}
+
+/* LANDSCAPE */
+
+@media(max-width:700px) and (orientation:landscape){
+ #aiAssistant{
+  height:calc(100dvh - 12px);
+  max-height:calc(100dvh - 12px);
+ }
+}
+
+/* REDUCED MOTION */
+
+@media(prefers-reduced-motion:reduce){
+ *,
+ *::before,
+ *::after{
+  scroll-behavior:auto!important;
+  animation-duration:.01ms!important;
+  transition-duration:.01ms!important;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+ <div class="logo">
+  SMART FINANCE
+  <small>FINANCIAL INTELLIGENCE CENTRE</small>
+ </div>
+
+ <div class="nav-title">MAIN MENU</div>
+ <button class="nav-btn active" data-page="home">⌂ Dashboard</button>
+ <button class="nav-btn" data-page="loan">▣ Loan Management</button>
+ <button class="nav-btn" data-page="classroom">▤ Financial Classroom</button>
+ <button class="nav-btn" data-page="savings">◈ Student Savings</button>
+ <button class="nav-btn" data-page="budget">▥ Budget Planner</button>
+
+ <div class="nav-title">SPECIAL SERVICES</div>
+ <button class="nav-btn" data-page="senior">♧ Senior Citizen Help</button>
+ <button class="nav-btn" data-page="pension">₹ Pension Centre</button>
+ <button class="nav-btn" data-page="quiz">✎ Banking Quiz</button>
+
+ <div class="nav-title">SYSTEM</div>
+ <button class="nav-btn" data-page="settings">⚙ Settings</button>
+
+</aside>
+
+<div id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+<main class="main">
+
+<header class="topbar">
+
+ <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Open menu">
+  ☰
+ </button>
+
+ <div>
+  <h2>SMART FINANCIAL CENTRE</h2>
+  <p>Digital Banking Education & Financial Awareness</p>
+ </div>
+
+ <div class="profile">STUDENT DEMO ACCOUNT</div>
+
+</header>
+
+<!-- DASHBOARD -->
+
+<section id="home" class="page active">
+
+ <div class="heading">
+  <h1>Financial Dashboard</h1>
+  <p>Welcome to Smart Financial Service & Learning Centre.</p>
+ </div>
+
+ <div class="grid">
+
+  <div class="card">
+   <div class="stat-label">Virtual Savings Balance</div>
+   <div class="stat-value" id="dashBalance">₹1,000</div>
+   <div class="stat-note">Educational Demo</div>
+  </div>
+
+  <div class="card">
+   <div class="stat-label">Total Transactions</div>
+   <div class="stat-value" id="dashTransactions">0</div>
+   <div class="stat-note">Demo Records</div>
+  </div>
+
+  <div class="card">
+   <div class="stat-label">Financial Modules</div>
+   <div class="stat-value">8</div>
+   <div class="stat-note">Learning Sections</div>
+  </div>
+
+  <div class="card">
+   <div class="stat-label">Assistant</div>
+   <div class="stat-value">ONLINE</div>
+   <div class="stat-note">Telugu + English</div>
+  </div>
+
+ </div>
+
+ <h2 class="section-title">Explore Services</h2>
+
+ <div class="module-grid">
+
+  <div class="card module" onclick="showPage('loan')">
+   <div class="module-icon">🏦</div>
+   <h3>Loan Management</h3>
+   <p>Understand EMI, interest and repayment.</p>
+  </div>
+
+  <div class="card module" onclick="showPage('classroom')">
+   <div class="module-icon">📚</div>
+   <h3>Financial Classroom</h3>
+   <p>Learn banking and money management.</p>
+  </div>
+
+  <div class="card module" onclick="showPage('savings')">
+   <div class="module-icon">💰</div>
+   <h3>Student Savings</h3>
+   <p>Practice saving with virtual money.</p>
+  </div>
+
+  <div class="card module" onclick="showPage('budget')">
+   <div class="module-icon">📊</div>
+   <h3>Budget Planner</h3>
+   <p>Plan monthly income and expenses.</p>
+  </div>
+
+  <div class="card module" onclick="showPage('senior')">
+   <div class="module-icon">🤝</div>
+   <h3>Senior Citizen Help</h3>
+   <p>Simple banking guidance for elders.</p>
+  </div>
+
+  <div class="card module" onclick="showPage('pension')">
+   <div class="module-icon">👴</div>
+   <h3>Pension Centre</h3>
+   <p>Understand pension-related services.</p>
+  </div>
+
+ </div>
+
+ <h2 class="section-title">Recent Transactions</h2>
+
+ <div class="card table-wrap">
+  <table>
+   <thead>
+    <tr>
+     <th>Type</th>
+     <th>Amount</th>
+     <th>Reference</th>
+     <th>Date</th>
+    </tr>
+   </thead>
+   <tbody id="transactionTable">
+    <tr><td colspan="4" class="muted">No transactions yet.</td></tr>
+   </tbody>
+  </table>
+ </div>
+
+</section>
+
+<!-- LOAN -->
+
+<section id="loan" class="page">
+
+ <div class="heading">
+  <h1>Smart Loan Management</h1>
+  <p>Calculate estimated EMI and understand loan repayment.</p>
+ </div>
+
+ <div class="card">
+  <h3>Loan EMI Calculator</h3>
+
+  <div class="form-grid">
+
+   <div class="field">
+    <label>Loan Amount (₹)</label>
+    <input id="principal" type="number" value="200000" min="1">
+   </div>
+
+   <div class="field">
+    <label>Annual Interest Rate (%)</label>
+    <input id="rate" type="number" value="9" min="0" step=".1">
+   </div>
+
+   <div class="field">
+    <label>Loan Duration (Years)</label>
+    <input id="years" type="number" value="5" min="1">
+   </div>
+
+   <div class="field">
+    <label>Loan Type</label>
+    <select id="loanType">
+     <option>Education Loan</option>
+     <option>Home Loan</option>
+     <option>Personal Loan</option>
+    </select>
+   </div>
+
+  </div>
+
+  <button class="btn" onclick="calculateEMI()">Calculate EMI</button>
+  <div id="emiResult" class="result" hidden></div>
+
+ </div>
+
+ <div class="card" style="margin-top:16px">
+
+  <h3>Demo Loan Application</h3>
+
+  <div class="field">
+   <label>Applicant Name</label>
+   <input id="applicantName" placeholder="Enter student name">
+  </div>
+
+  <div class="field">
+   <label>Loan Purpose</label>
+   <input id="loanPurpose" placeholder="Education / Business">
+  </div>
+
+  <button class="btn" onclick="applyLoan()">Submit Demo Application</button>
+  <div id="loanApplicationResult" class="result" hidden></div>
+
+ </div>
+
+</section>
+
+<!-- CLASSROOM -->
+
+<section id="classroom" class="page">
+
+ <div class="heading">
+  <h1>Financial Literacy Classroom</h1>
+  <p>Learn important financial concepts through simple lessons.</p>
+ </div>
+
+ <div class="module-grid">
+
+  <div class="card lesson">
+   <h3>01. What is a Bank?</h3>
+   <p>A bank is a financial institution that accepts deposits, provides loans and offers payment services.</p>
+  </div>
+
+  <div class="card lesson">
+   <h3>02. What is Saving?</h3>
+   <p>Saving means keeping a part of your available money for future needs.</p>
+  </div>
+
+  <div class="card lesson">
+   <h3>03. What is Interest?</h3>
+   <p>Interest is the amount paid for borrowing money or earned on certain deposits.</p>
+  </div>
+
+  <div class="card lesson">
+   <h3>04. What is UPI?</h3>
+   <p>UPI is a digital payment system that supports bank-to-bank payments.</p>
+  </div>
+
+  <div class="card lesson">
+   <h3>05. What is Insurance?</h3>
+   <p>Insurance helps protect against specified financial risks under a policy.</p>
+  </div>
+
+  <div class="card lesson">
+   <h3>06. Cyber Safety</h3>
+   <p>Never share OTP, PIN, passwords or confidential banking information with anyone.</p>
+  </div>
+
+ </div>
+
+</section>
+
+<!-- SAVINGS -->
+
+<section id="savings" class="page">
+
+ <div class="heading">
+  <h1>Student Virtual Savings</h1>
+  <p>Practice responsible money management. No real money is involved.</p>
+ </div>
+
+ <div class="card">
+
+  <div class="stat-label">Available Virtual Balance</div>
+  <div class="stat-value" id="savingsBalance">₹1,000</div>
+
+  <div class="form-grid">
+
+   <div class="field">
+    <label>Amount (₹)</label>
+    <input type="number" id="savingAmount" min="1" placeholder="Enter amount">
+   </div>
+
+   <div class="field">
+    <label>Transaction Type</label>
+    <select id="savingType">
+     <option value="deposit">Deposit</option>
+     <option value="withdraw">Withdraw</option>
+    </select>
+   </div>
+
+  </div>
+
+  <button class="btn" onclick="makeTransaction()">Confirm Demo Transaction</button>
+  <div id="savingResult" class="result" hidden></div>
+
+ </div>
+
+ <div class="card" style="margin-top:16px">
+
+  <h3>Savings Goal</h3>
+
+  <div class="field">
+   <label>My Target (₹)</label>
+   <input type="number" id="goal" value="5000" min="1">
+  </div>
+
+  <div class="progress">
+   <div id="goalProgress"></div>
+  </div>
+
+  <p id="goalText" class="muted">0% completed</p>
+  <button class="btn secondary" onclick="updateGoal()">Update Goal</button>
+
+ </div>
+
+</section>
+
+<!-- BUDGET -->
+
+<section id="budget" class="page">
+
+ <div class="heading">
+  <h1>Monthly Budget Planner</h1>
+  <p>Understand where your money goes and plan expenses.</p>
+ </div>
+
+ <div class="card">
+
+  <div class="form-grid">
+
+   <div class="field">
+    <label>Monthly Income (₹)</label>
+    <input type="number" id="income" value="10000" min="0">
+   </div>
+
+   <div class="field">
+    <label>Monthly Expenses (₹)</label>
+    <input type="number" id="expenses" value="6500" min="0">
+   </div>
+
+  </div>
+
+  <button class="btn" onclick="calculateBudget()">Calculate Budget</button>
+  <div id="budgetResult" class="result" hidden></div>
+
+ </div>
+
+</section>
+
+<!-- SENIOR CITIZEN -->
+
+<section id="senior" class="page">
+
+ <div class="heading">
+  <h1>Senior Citizen Assistance</h1>
+  <p>Simple and accessible banking awareness for senior citizens.</p>
+ </div>
+
+ <div class="module-grid">
+
+  <div class="card lesson">
+   <h3>🤝 Bank Help Desk</h3>
+   <p>Ask authorised bank staff for assistance with account-related services.</p>
+  </div>
+
+  <div class="card lesson">
+   <h3>🔐 Banking Safety</h3>
+   <p>Never share ATM PIN, OTP, passwords or account credentials.</p>
+  </div>
+
+  <div class="card lesson">
+   <h3>📱 Digital Payments</h3>
+   <p>Check the recipient and amount before approving a digital payment.</p>
+  </div>
+
+  <div class="card lesson">
+   <h3>♿ Accessible Banking</h3>
+   <p>Ask your bank about available accessible counters and assistance.</p>
+  </div>
+
+ </div>
+
+ <div class="card" style="margin-top:15px">
+
+  <h3>Voice Guidance</h3>
+  <p class="muted">Listen to a simple banking safety message.</p>
+
+  <button class="btn" onclick="speakAI('Please never share your OTP, ATM PIN or password with anyone. Contact your bank through its official channels if you need assistance.','en-IN')">
+   ▶ English Guidance
+  </button>
+
+  <button class="btn secondary" onclick="speakAI('దయచేసి మీ OTP, ATM PIN లేదా పాస్‌వర్డ్‌ను ఎవరికీ చెప్పకండి. సహాయం కోసం అధికారిక బ్యాంక్ మార్గాలను ఉపయోగించండి.','te-IN')">
+   ▶ తెలుగు సూచనలు
+  </button>
+
+ </div>
+
+</section>
+
+<!-- PENSION -->
+
+<section id="pension" class="page">
+
+ <div class="heading">
+  <h1>Pension Information Centre</h1>
+  <p>Learn about pension services and safe information practices.</p>
+ </div>
+
+ <div class="card">
+
+  <h3>What is Pension?</h3>
+
+  <p class="muted" style="line-height:1.8">
+   A pension is a regular payment made to eligible people under a pension scheme.
+   Eligibility, amount and payment procedures depend on the scheme.
+  </p>
+
+  <h3>Important Safety Tips</h3>
+
+  <ul class="muted" style="line-height:2">
+   <li>Use official government or bank channels.</li>
+   <li>Do not share OTP or PIN with strangers.</li>
+   <li>Verify pension information through authorised offices.</li>
+   <li>Keep required documents safe.</li>
+  </ul>
+
+ </div>
+
+ <div class="card" style="margin-top:15px">
+
+  <h3>Demo Pension Record</h3>
+
+  <div class="field">
+   <label>Beneficiary Name</label>
+   <input id="pensionName" placeholder="Enter demo name">
+  </div>
+
+  <div class="field">
+   <label>Monthly Pension Amount (₹)</label>
+   <input id="pensionAmount" type="number" min="1" placeholder="Enter demo amount">
+  </div>
+
+  <button class="btn" onclick="savePension()">Save Demo Record</button>
+  <div id="pensionResult" class="result" hidden></div>
+
+ </div>
+
+</section>
+
+<!-- QUIZ -->
+
+<section id="quiz" class="page">
+
+ <div class="heading">
+  <h1>Banking Knowledge Quiz</h1>
+  <p>Test your understanding of financial literacy.</p>
+ </div>
+
+ <div class="card">
+
+  <div id="quizArea">
+
+   <h3 id="question">Press Start to begin your quiz.</h3>
+   <div id="options"></div>
+   <p id="quizScore" class="muted"></p>
+   <button class="btn" id="quizStart" onclick="startQuiz()">Start Quiz</button>
+
+  </div>
+
+ </div>
+
+</section>
+
+<!-- SETTINGS -->
+
+<section id="settings" class="page">
+
+ <div class="heading">
+  <h1>System Settings</h1>
+  <p>Manage your educational demo preferences.</p>
+ </div>
+
+ <div class="card">
+
+  <h3>Display Preferences</h3>
+
+  <div class="field">
+   <label>Text Size</label>
+   <select id="textSize" onchange="changeTextSize()">
+    <option value="14">Normal</option>
+    <option value="17">Large</option>
+    <option value="20">Extra Large</option>
+   </select>
+  </div>
+
+  <h3>Data Management</h3>
+
+  <p class="muted">
+   Reset removes saved demo transactions and virtual savings data.
+  </p>
+
+  <button class="btn danger" onclick="resetData()">Reset Demo Data</button>
+
+ </div>
+
+</section>
+
+<footer>
+ <strong>SMART FINANCIAL SERVICE & LEARNING CENTRE</strong><br>
+ SMARTBANK • EDUCATIONAL SIMULATION<br>
+ Offline-first demo · No real banking services<br>
+ Developed by Boddu Yaswanth | 10th Class<br>
+ PM SHRI ZPHS NAGAYALANKA | Batch 2026–2027
+</footer>
+
+</main>
+</div>
+
+<!-- AI ASSISTANT -->
+
+<div id="aiAssistant">
+
+ <div class="ai-header">
+
+  <div class="ai-brand">
+   <div class="ai-orb">✦</div>
+   <div>
+    <strong>SMART AI ASSISTANT</strong>
+    <small>Telugu + English</small>
+   </div>
+  </div>
+
+  <button class="ai-close" onclick="toggleAssistant()">−</button>
+
+ </div>
+
+ <div class="ai-status">
+  ● <span id="aiStatus">Assistant Online</span>
+ </div>
+
+ <div id="aiMessages">
+  <div class="ai-message bot">
+   Hello! Welcome to Smart Finance.
+   నమస్కారం! నేను మీకు ఎలా సహాయం చేయగలను?
+  </div>
+ </div>
+
+ <div class="ai-controls">
+  <button onclick="setVoiceMode('te-IN')">తెలుగు</button>
+  <button onclick="setVoiceMode('en-IN')">English</button>
+ </div>
+
+ <div class="ai-input-area">
+  <input id="aiInput"
+   placeholder="Ask anything / ఏదైనా అడగండి..."
+   onkeydown="if(event.key==='Enter')sendAIMessage()">
+  <button onclick="sendAIMessage()">➤</button>
+ </div>
+
+ <div class="ai-bottom">
+  <button onclick="startAIListening()">🎤 Speak</button>
+  <button onclick="stopAIListening()">■ Stop</button>
+  <button onclick="clearAIChat()">Clear</button>
+ </div>
+
+ <div class="ai-note">
+  Educational Assistant · No real banking
+ </div>
+
+</div>
+
+<button id="aiFloating" onclick="toggleAssistant()" aria-label="Open AI Assistant">✦</button>
+
+<script>
+
+/* =================================
+   DATA MANAGEMENT
+================================= */
+
+const DEFAULT_DATA={
+ savings:1000,
+ transactions:[]
+};
+
+let data;
+
+try{
+ const saved=JSON.parse(localStorage.getItem("smartFinanceData"));
+
+ if(saved &&
+    typeof saved.savings==="number" &&
+    Array.isArray(saved.transactions)){
+  data=saved;
+ }else{
+  data=JSON.parse(JSON.stringify(DEFAULT_DATA));
+ }
+
+}catch(error){
+ data=JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+
+function saveData(){
+ try{
+  localStorage.setItem("smartFinanceData",JSON.stringify(data));
+ }catch(error){
+  console.error("Storage error:",error);
+ }
+ updateDashboard();
+}
+
+function money(value){
+ return "₹"+Number(value).toLocaleString("en-IN",{
+  maximumFractionDigits:2
+ });
+}
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[c]));
+}
+
+/* =================================
+   NAVIGATION
+================================= */
+
+function showPage(page){
+
+ const target=document.getElementById(page);
+
+ if(!target)return;
+
+ document.querySelectorAll(".page").forEach(p=>{
+  p.classList.remove("active");
+ });
+
+ target.classList.add("active");
+
+ document.querySelectorAll(".nav-btn").forEach(button=>{
+  button.classList.toggle(
+   "active",
+   button.dataset.page===page
+  );
+ });
+
+ if(window.innerWidth<=700){
+  closeMobileMenu();
+ }
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
+}
+
+document.querySelectorAll(".nav-btn").forEach(button=>{
+ button.addEventListener("click",()=>{
+  showPage(button.dataset.page);
+ });
+});
+
+/* =================================
+   MOBILE MENU
+================================= */
+
+function toggleMobileMenu(){
+
+ const sidebar=document.querySelector(".sidebar");
+ const overlay=document.getElementById("mobileOverlay");
+
+ sidebar.classList.toggle("mobile-open");
+ overlay.classList.toggle("visible");
+
+}
+
+function closeMobileMenu(){
+
+ document.querySelector(".sidebar")
+  .classList.remove("mobile-open");
+
+ document.getElementById("mobileOverlay")
+  .classList.remove("visible");
+
+}
+
+document.addEventListener("keydown",event=>{
+ if(event.key==="Escape"){
+  closeMobileMenu();
+  closeAssistant();
+ }
+});
+
+/* =================================
+   DASHBOARD
+================================= */
+
+function updateDashboard(){
+
+ document.getElementById("dashBalance").textContent=
+  money(data.savings);
+
+ document.getElementById("savingsBalance").textContent=
+  money(data.savings);
+
+ document.getElementById("dashTransactions").textContent=
+  data.transactions.length;
+
+ const body=document.getElementById("transactionTable");
+
+ if(data.transactions.length===0){
+
+  body.innerHTML=
+   '<tr><td colspan="4" class="muted">No transactions yet.</td></tr>';
+
+ }else{
+
+  body.innerHTML=data.transactions.slice().reverse().map(t=>`
+   <tr>
+    <td>${escapeHTML(t.type)}</td>
+    <td>${money(t.amount)}</td>
+    <td>${escapeHTML(t.ref)}</td>
+    <td>${escapeHTML(t.date)}</td>
+   </tr>
+  `).join("");
+
+ }
+
+ updateGoal();
+
+}
+
+/* =================================
+   SAVINGS
+================================= */
+
+function makeTransaction(){
+
+ const amount=Number(
+  document.getElementById("savingAmount").value
+ );
+
+ const type=document.getElementById("savingType").value;
+ const result=document.getElementById("savingResult");
+
+ if(!Number.isFinite(amount)||amount<=0){
+  result.hidden=false;
+  result.textContent="Enter a valid amount.";
+  return;
+ }
+
+ if(type==="withdraw" && amount>data.savings){
+  result.hidden=false;
+  result.textContent="Insufficient virtual balance.";
+  return;
+ }
+
+ if(type==="deposit"){
+  data.savings+=amount;
+ }else{
+  data.savings-=amount;
+ }
+
+ const ref="SFC"+Date.now().toString().slice(-8);
+
+ data.transactions.push({
+  type:type==="deposit"?"Deposit":"Withdrawal",
+  amount:amount,
+  ref:ref,
+  date:new Date().toLocaleDateString("en-IN")
+ });
+
+ saveData();
+
+ result.hidden=false;
+ result.textContent=
+  "Transaction successful. Reference ID: "+ref;
+
+ document.getElementById("savingAmount").value="";
+
+}
+
+function updateGoal(){
+
+ const goalInput=document.getElementById("goal");
+ const goal=Number(goalInput?.value)||5000;
+
+ const percent=goal>0?
+  Math.min(100,data.savings/goal*100):0;
+
+ const bar=document.getElementById("goalProgress");
+ const text=document.getElementById("goalText");
+
+ if(bar)bar.style.width=percent+"%";
+
+ if(text){
+  text.textContent=
+   percent.toFixed(1)+"% completed · "+
+   money(data.savings)+" saved";
+ }
+
+}
+
+/* =================================
+   EMI CALCULATOR
+================================= */
+
+function calculateEMI(){
+
+ const p=Number(document.getElementById("principal").value);
+ const annual=Number(document.getElementById("rate").value);
+ const years=Number(document.getElementById("years").value);
+
+ const result=document.getElementById("emiResult");
+
+ if(
+  !Number.isFinite(p)||
+  !Number.isFinite(annual)||
+  !Number.isFinite(years)||
+  p<=0||annual<0||years<=0||years>50
+ ){
+
+  result.hidden=false;
+  result.textContent="Please enter valid loan details. Duration must be up to 50 years.";
+  return;
+
+ }
+
+ const n=years*12;
+ const r=annual/1200;
+
+ const emi=r===0?p/n:
+  p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+
+ const total=emi*n;
+ const interest=total-p;
+
+ result.hidden=false;
+
+ result.innerHTML=`
+  <strong>Estimated Monthly EMI:</strong> ${money(emi)}<br>
+  Principal Amount: ${money(p)}<br>
+  Total Interest: ${money(interest)}<br>
+  Total Repayment: ${money(total)}<br>
+  Duration: ${n} months
+  <p class="muted">
+   Illustrative estimate only. Actual loan terms depend on the lender.
+  </p>
+ `;
+
+}
+
+function applyLoan(){
+
+ const name=document.getElementById("applicantName").value.trim();
+ const purpose=document.getElementById("loanPurpose").value.trim();
+
+ const result=document.getElementById("loanApplicationResult");
+
+ if(!name||!purpose){
+  result.hidden=false;
+  result.textContent="Please enter applicant name and loan purpose.";
+  return;
+ }
+
+ result.hidden=false;
+ result.textContent=
+  "Demo application recorded for "+name+
+  ". Purpose: "+purpose+
+  ". This is not a real loan application.";
+
+}
+
+/* =================================
+   BUDGET
+================================= */
+
+function calculateBudget(){
+
+ const income=Number(document.getElementById("income").value);
+ const expenses=Number(document.getElementById("expenses").value);
+
+ const result=document.getElementById("budgetResult");
+
+ if(
+  !Number.isFinite(income)||
+  !Number.isFinite(expenses)||
+  income<0||expenses<0
+ ){
+
+  result.hidden=false;
+  result.textContent="Enter valid non-negative amounts.";
+  return;
+
+ }
+
+ const remaining=income-expenses;
+ const percent=income>0?expenses/income*100:0;
+
+ result.hidden=false;
+
+ result.innerHTML=`
+  Monthly Income: ${money(income)}<br>
+  Expenses: ${money(expenses)}<br>
+  Remaining: <strong>${money(remaining)}</strong><br>
+  Expense Ratio: ${percent.toFixed(1)}%
+ `;
+
+}
+
+/* =================================
+   PENSION DEMO
+================================= */
+
+function savePension(){
+
+ const name=document.getElementById("pensionName").value.trim();
+ const amount=Number(document.getElementById("pensionAmount").value);
+
+ const result=document.getElementById("pensionResult");
+
+ if(!name||!Number.isFinite(amount)||amount<=0){
+
+  result.hidden=false;
+  result.textContent="Enter a demo name and valid amount.";
+  return;
+
+ }
+
+ result.hidden=false;
+
+ result.textContent=
+  "Demo record created for "+name+
+  ". Illustrative amount: "+money(amount)+
+  ". This does not verify pension eligibility or payment.";
+
+}
+
+/* =================================
+   QUIZ
+================================= */
+
+const quizQuestions=[
+
+ {
+  q:"What is the main purpose of saving?",
+  options:[
+   "Only spending",
+   "Future needs",
+   "Borrowing more",
+   "Avoiding learning"
+  ],
+  answer:1
+ },
+
+ {
+  q:"What should you never share with strangers?",
+  options:[
+   "OTP and PIN",
+   "Public news",
+   "Bank opening hours",
+   "General knowledge"
+  ],
+  answer:0
+ },
+
+ {
+  q:"What does EMI stand for?",
+  options:[
+   "Easy Money Income",
+   "Equated Monthly Instalment",
+   "Extra Money Interest",
+   "Electronic Money Information"
+  ],
+  answer:1
+ },
+
+ {
+  q:"What is a budget?",
+  options:[
+   "A spending plan",
+   "A bank password",
+   "A loan document",
+   "An ATM card"
+  ],
+  answer:0
+ },
+
+ {
+  q:"What is the purpose of insurance?",
+  options:[
+   "Guaranteed profit",
+   "Protection against specified risks",
+   "Free shopping",
+   "Avoiding all expenses"
+  ],
+  answer:1
+ }
+
+];
+
+let quizIndex=0;
+let quizPoints=0;
+let quizActive=false;
+
+function startQuiz(){
+
+ quizIndex=0;
+ quizPoints=0;
+ quizActive=true;
+
+ document.getElementById("quizScore").textContent="";
+ document.getElementById("quizStart").style.display="none";
+
+ showQuestion();
+
+}
+
+function showQuestion(){
+
+ const q=quizQuestions[quizIndex];
+
+ document.getElementById("question").textContent=
+  "Question "+(quizIndex+1)+"/"+
+  quizQuestions.length+": "+q.q;
+
+ const options=document.getElementById("options");
+
+ options.innerHTML="";
+
+ q.options.forEach((option,index)=>{
+
+  const btn=document.createElement("button");
+
+  btn.className="quiz-option";
+  btn.textContent=option;
+
+  btn.onclick=()=>answerQuiz(index);
+
+  options.appendChild(btn);
+
+ });
+
+}
+
+function answerQuiz(index){
+
+ if(!quizActive)return;
+
+ if(index===quizQuestions[quizIndex].answer){
+  quizPoints++;
+ }
+
+ quizIndex++;
+
+ if(quizIndex<quizQuestions.length){
+
+  showQuestion();
+
+ }else{
+
+  quizActive=false;
+
+  document.getElementById("question").textContent=
+   "Quiz completed! Your score: "+
+   quizPoints+"/"+quizQuestions.length;
+
+  document.getElementById("options").innerHTML="";
+
+  document.getElementById("quizScore").textContent=
+   quizPoints>=4?"Excellent work!":"Keep learning and try again.";
+
+  document.getElementById("quizStart").style.display="inline-block";
+  document.getElementById("quizStart").textContent="Try Again";
+
+ }
+
+}
+
+/* =================================
+   SETTINGS
+================================= */
+
+function changeTextSize(){
+
+ const size=Number(document.getElementById("textSize").value);
+
+ document.querySelectorAll(
+  ".main p,.main td,.main li"
+ ).forEach(el=>{
+  el.style.fontSize=size+"px";
+ });
+
+}
+
+function resetData(){
+
+ if(!confirm("Reset all virtual savings and transaction data?")){
+  return;
+ }
+
+ data=JSON.parse(JSON.stringify(DEFAULT_DATA));
+
+ saveData();
+
+ document.getElementById("savingResult").hidden=true;
+
+ alert("Demo data reset.");
+
+}
+
+/* =================================
+   AI ASSISTANT UI
+================================= */
+
+let aiLanguage="en-IN";
+let aiRecognition=null;
+
+function toggleAssistant(){
+
+ const box=document.getElementById("aiAssistant");
+ const floating=document.getElementById("aiFloating");
+
+ const open=getComputedStyle(box).display==="none";
+
+ box.style.display=open?"flex":"none";
+ floating.style.display=open?"none":"block";
+
+}
+
+function closeAssistant(){
+
+ const box=document.getElementById("aiAssistant");
+
+ if(box.style.display!=="none"){
+  box.style.display="none";
+  document.getElementById("aiFloating").style.display="block";
+ }
+
+}
+
+function addAIMessage(message,type="bot"){
+
+ const div=document.createElement("div");
+
+ div.className="ai-message "+type;
+ div.textContent=message;
+
+ const messages=document.getElementById("aiMessages");
+
+ messages.appendChild(div);
+ messages.scrollTop=messages.scrollHeight;
+
+}
+
+function clearAIChat(){
+
+ document.getElementById("aiMessages").innerHTML="";
+
+}
+
+function setVoiceMode(language){
+
+ aiLanguage=language;
+
+ document.getElementById("aiStatus").textContent=
+  language==="te-IN"?
+  "తెలుగు Voice Mode":
+  "English Voice Mode";
+
+ speakAI(
+  language==="te-IN"?
+  "తెలుగు వాయిస్ మోడ్ ప్రారంభమైంది.":
+  "English voice mode activated.",
+  language
+ );
+
+}
+
+function speakAI(message,language=aiLanguage){
+
+ if(!("speechSynthesis" in window)){
+  addAIMessage("Speech output is not supported in this browser.");
+  return;
+ }
+
+ speechSynthesis.cancel();
+
+ const utterance=new SpeechSynthesisUtterance(message);
+
+ utterance.lang=language;
+ utterance.rate=.9;
+ utterance.pitch=1;
+
+ const voices=speechSynthesis.getVoices();
+
+ const voice=voices.find(v=>
+  v.lang.toLowerCase()===language.toLowerCase()
+ );
+
+ if(voice){
+  utterance.voice=voice;
+ }
+
+ speechSynthesis.speak(utterance);
+
+}
+
+/* =================================
+   LANGUAGE DETECTION
+================================= */
+
+function detectAILanguage(text){
+
+ if(/[\u0C00-\u0C7F]/.test(text)){
+  return "te-IN";
+ }
+
+ const roman=[
+  "cheyyi",
+  "cheppu",
+  "chupinchu",
+  "naaku",
+  "entha",
+  "undi",
+  "open chey",
+  "ivvu",
+  "kavali",
+  "emi",
+  "naa",
+  "chesi",
+  "cheyyandi",
+  "telugu",
+  "prarambhinchu",
+  "details cheppu"
+ ];
+
+ const t=text.toLowerCase();
+
+ if(roman.some(word=>t.includes(word))){
+  return "te-IN";
+ }
+
+ return "en-IN";
+
+}
+
+function normalizeAI(text){
+
+ return text.toLowerCase()
+  .replace(/[.,!?;:]/g," ")
+  .replace(/\s+/g," ")
+  .trim();
+
+}
+
+/* =================================
+   MAIN ASSISTANT INPUT
+================================= */
+
+function sendAIMessage(){
+
+ const input=document.getElementById("aiInput");
+
+ const text=input.value.trim();
+
+ if(!text)return;
+
+ input.value="";
+
+ addAIMessage(text,"user");
+
+ const language=detectAILanguage(text);
+
+ aiLanguage=language;
+
+ const answer=processAICommand(text,language);
+
+ addAIMessage(answer);
+
+ speakAI(answer,language);
+
+}
+
+/* =================================
+   ASSISTANT INTELLIGENCE
+================================= */
+
+function processAICommand(text,language){
+
+ const t=normalizeAI(text);
+
+ const te=language==="te-IN";
+
+ const reply=(en,tel)=>te?tel:en;
+
+ const go=(page,en,tel)=>{
+  showPage(page);
+  return reply(en,tel);
+ };
+
+ /* Greetings */
+
+ if(
+  /\b(hi|hello|hey)\b/.test(t)||
+  t.includes("నమస్కారం")||
+  t.includes("హలో")||
+  t.includes("namaskaram")
+ ){
+
+  return reply(
+   "Hello! I am your Smart Finance Assistant. What would you like to explore?",
+   "నమస్కారం! నేను మీ Smart Finance Assistant ని. మీకు ఏ సహాయం కావాలి?"
+  );
+
+ }
+
+ /* Home */
+
+ if(
+  t.includes("dashboard")||
+  t.includes("home")||
+  t.includes("హోమ్")||
+  t.includes("డాష్")||
+  t.includes("back to home")
+ ){
+
+  return go(
+   "home",
+   "Opening Dashboard.",
+   "డాష్‌బోర్డ్ తెరుస్తున్నాను."
+  );
+
+ }
+
+ /* Loan */
+
+ if(
+  t.includes("loan")||
+  t.includes("లోన్")||
+  t.includes("రుణ")
+ ){
+
+  return go(
+   "loan",
+   "Opening Loan Management.",
+   "లోన్ మేనేజ్‌మెంట్ విభాగాన్ని తెరుస్తున్నాను."
+  );
+
+ }
+
+ /* Classroom */
+
+ if(
+  t.includes("classroom")||
+  t.includes("learning")||
+  t.includes("పాఠం")||
+  t.includes("క్లాస్")||
+  t.includes("విద్య")
+ ){
+
+  return go(
+   "classroom",
+   "Opening Financial Classroom.",
+   "ఫైనాన్షియల్ క్లాస్‌రూమ్ తెరుస్తున్నాను."
+  );
+
+ }
+
+ /* Savings */
+
+ if(
+  t.includes("saving")||
+  t.includes("savings")||
+  t.includes("పొదుపు")||
+  t.includes("డబ్బు దాచ")
+ ){
+
+  return go(
+   "savings",
+   "Opening Student Savings.",
+   "స్టూడెంట్ సేవింగ్స్ విభాగాన్ని తెరుస్తున్నాను."
+  );
+
+ }
+
+ /* Budget */
+
+ if(
+  t.includes("budget")||
+  t.includes("బడ్జెట్")||
+  t.includes("ఖర్చు")
+ ){
+
+  return go(
+   "budget",
+   "Opening Budget Planner.",
+   "బడ్జెట్ ప్లానర్ తెరుస్తున్నాను."
+  );
+
+ }
+
+ /* Senior Citizen */
+
+ if(
+  t.includes("senior")||
+  t.includes("elderly")||
+  t.includes("వృద్ధ")||
+  t.includes("పెద్దవారి")
+ ){
+
+  return go(
+   "senior",
+   "Opening Senior Citizen Assistance.",
+   "వృద్ధుల సహాయ కేంద్రాన్ని తెరుస్తున్నాను."
+  );
+
+ }
+
+ /* Pension */
+
+ if(
+  t.includes("pension")||
+  t.includes("పెన్షన్")
+ ){
+
+  return go(
+   "pension",
+   "Opening Pension Centre.",
+   "పెన్షన్ సమాచార కేంద్రాన్ని తెరుస్తున్నాను."
+  );
+
+ }
+
+ /* Quiz */
+
+ if(
+  t.includes("quiz")||
+  t.includes("క్విజ్")||
+  t.includes("ప్రశ్నలు")
+ ){
+
+  return go(
+   "quiz",
+   "Opening Banking Quiz.",
+   "బ్యాంకింగ్ క్విజ్ తెరుస్తున్నాను."
+  );
+
+ }
+
+ /* Settings */
+
+ if(
+  t.includes("setting")||
+  t.includes("సెట్టింగ్")
+ ){
+
+  return go(
+   "settings",
+   "Opening Settings.",
+   "సెట్టింగ్స్ తెరుస్తున్నాను."
+  );
+
+ }
+
+ /* Balance */
+
+ if(
+  t.includes("balance")||
+  t.includes("బ్యాలెన్స్")||
+  t.includes("savings amount")||
+  t.includes("ఎంత డబ్బు")||
+  t.includes("ఎంత ఉంది")
+ ){
+
+  return reply(
+   "Your virtual savings balance is "+money(data.savings)+".",
+   "మీ వర్చువల్ సేవింగ్స్ బ్యాలెన్స్ "+money(data.savings)+" ఉంది."
+  );
+
+ }
+
+ /* EMI */
+
+ if(
+  t.includes("emi")||
+  t.includes("ఈఎంఐ")||
+  t.includes("monthly payment")
+ ){
+
+  showPage("loan");
+
+  const p=Number(document.getElementById("principal").value);
+  const annual=Number(document.getElementById("rate").value);
+  const years=Number(document.getElementById("years").value);
+
+  if(
+   !Number.isFinite(p)||
+   !Number.isFinite(annual)||
+   !Number.isFinite(years)||
+   p<=0||annual<0||years<=0||years>50
+  ){
+
+   return reply(
+    "Please enter valid loan details first.",
+    "ముందుగా సరైన లోన్ వివరాలు నమోదు చేయండి."
+   );
+
+  }
+
+  calculateEMI();
+
+  const n=years*12;
+  const r=annual/1200;
+
+  const emi=r===0?p/n:
+   p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+
+  return reply(
+   "Your estimated monthly EMI is "+money(emi)+".",
+   "మీ అంచనా నెలవారీ EMI "+money(emi)+"."
+  );
+
+ }
+
+ /* Budget */
+
+ if(
+  t.includes("remaining budget")||
+  t.includes("budget balance")||
+  t.includes("మిగిలిన బడ్జెట్")||
+  t.includes("బడ్జెట్ ఎంత")
+ ){
+
+  showPage("budget");
+
+  const income=Number(document.getElementById("income").value)||0;
+  const expenses=Number(document.getElementById("expenses").value)||0;
+
+  const remaining=income-expenses;
+
+  return reply(
+   "Your remaining budget is "+money(remaining)+".",
+   "మీకు మిగిలిన బడ్జెట్ "+money(remaining)+"."
+  );
+
+ }
+
+ /* Goal */
+
+ if(
+  t.includes("goal")||
+  t.includes("లక్ష్యం")
+ ){
+
+  const goal=Number(document.getElementById("goal").value);
+
+  if(goal>0){
+
+   const percent=Math.min(100,data.savings/goal*100);
+
+   return reply(
+    "Your savings goal progress is "+percent.toFixed(1)+" percent.",
+    "మీ సేవింగ్స్ లక్ష్యం "+percent.toFixed(1)+" శాతం పూర్తయింది."
+   );
+
+  }
+
+ }
+
+ /* Financial Education */
+
+ if(
+  t.includes("what is a bank")||
+  t.includes("bank meaning")||
+  t.includes("బ్యాంకు అంటే")||
+  t.includes("బ్యాంక్ అంటే")
+ ){
+
+  return reply(
+   "A bank is a financial institution that accepts deposits, provides loans and offers payment services.",
+   "బ్యాంకు అనేది ప్రజల నుంచి డిపాజిట్లు స్వీకరించి, రుణాలు మరియు చెల్లింపు సేవలు అందించే ఆర్థిక సంస్థ."
+  );
+
+ }
+
+ if(
+  t.includes("what is saving")||
+  t.includes("saving meaning")||
+  t.includes("సేవింగ్ అంటే")||
+  t.includes("పొదుపు అంటే")
+ ){
+
+  return reply(
+   "Saving means keeping part of your money for future needs.",
+   "పొదుపు అంటే భవిష్యత్తు అవసరాల కోసం మన డబ్బులో కొంత భాగాన్ని దాచుకోవడం."
+  );
+
+ }
+
+ if(
+  t.includes("what is upi")||
+  t.includes("upi అంటే")||
+  t.includes("యూపీఐ")
+ ){
+
+  return reply(
+   "UPI is a digital payment system that allows bank-to-bank payments.",
+   "UPI అనేది ఒక బ్యాంకు ఖాతా నుంచి మరొక బ్యాంకు ఖాతాకు డిజిటల్ చెల్లింపులు చేయడానికి ఉపయోగించే వ్యవస్థ."
+  );
+
+ }
+
+ /* Safety */
+
+ if(
+  t.includes("otp")||
+  t.includes("pin")||
+  t.includes("password")||
+  t.includes("ఓటీపీ")||
+  t.includes("పిన్")
+ ){
+
+  return reply(
+   "Never share your OTP, ATM PIN or banking password with anyone.",
+   "మీ OTP, ATM PIN లేదా బ్యాంకింగ్ పాస్‌వర్డ్‌ను ఎవరితోనూ పంచుకోకండి."
+  );
+
+ }
+
+ /* Help */
+
+ if(
+  t.includes("help")||
+  t.includes("సహాయం")||
+  t.includes("ఏమి చేయగలవు")
+ ){
+
+  return reply(
+   "I can open Loan, Savings, Budget, Pension, Classroom, Senior Citizen and Quiz sections. I can also read your demo balance and calculate EMI.",
+   "నేను లోన్, సేవింగ్స్, బడ్జెట్, పెన్షన్, క్లాస్‌రూమ్, వృద్ధుల సహాయం, క్విజ్ విభాగాలను తెరవగలను. మీ డెమో బ్యాలెన్స్ చెప్పగలను, EMI లెక్కించగలను."
+  );
+
+ }
+
+ /* Fallback */
+
+ return reply(
+  "I could not understand that request. Try: Open Loan, Show Savings Balance, Calculate EMI, Open Budget or Help.",
+  "మీరు అడిగింది నాకు స్పష్టంగా అర్థం కాలేదు. లోన్ తెరువు, సేవింగ్స్ బ్యాలెన్స్ చెప్పు, EMI లెక్కించు, బడ్జెట్ తెరువు లేదా సహాయం అని ప్రయత్నించండి."
+ );
+
+}
+
+/* =================================
+   VOICE RECOGNITION
+================================= */
+
+function startAIListening(){
+
+ const SpeechRecognition=
+  window.SpeechRecognition||
+  window.webkitSpeechRecognition;
+
+ if(!SpeechRecognition){
+
+  document.getElementById("aiStatus").textContent=
+   "Voice unavailable - Use text chat";
+
+  addAIMessage(
+   "Voice recognition is not supported in this browser. Please use the text input below."
+  );
+
+  document.getElementById("aiInput").focus();
+
+  return;
+
+ }
+
+ if(aiRecognition){
+
+  try{
+   aiRecognition.abort();
+  }catch(error){}
+
+ }
+
+ aiRecognition=new SpeechRecognition();
+
+ aiRecognition.lang=aiLanguage;
+ aiRecognition.continuous=false;
+ aiRecognition.interimResults=false;
+ aiRecognition.maxAlternatives=1;
+
+ document.getElementById("aiStatus").textContent=
+  aiLanguage==="te-IN"?
+  "వింటున్నాను...":
+  "Listening...";
+
+ aiRecognition.onresult=function(event){
+
+  const spoken=event.results[0][0].transcript;
+
+  document.getElementById("aiInput").value=spoken;
+
+  sendAIMessage();
+
+ };
+
+ aiRecognition.onerror=function(event){
+
+  document.getElementById("aiStatus").textContent=
+   "Voice error: "+event.error;
+
+  if(event.error==="not-allowed"){
+
+   addAIMessage(
+    "Microphone permission is blocked. Allow microphone access in browser settings."
+   );
+
+  }
+
+ };
+
+ aiRecognition.onend=function(){
+
+  document.getElementById("aiStatus").textContent=
+   "Assistant Online";
+
+ };
+
+ try{
+
+  aiRecognition.start();
+
+ }catch(error){
+
+  document.getElementById("aiStatus").textContent=
+   "Please try again";
+
+ }
+
+}
+
+function stopAIListening(){
+
+ if(aiRecognition){
+
+  try{
+   aiRecognition.stop();
+  }catch(error){}
+
+ }
+
+ if("speechSynthesis" in window){
+  speechSynthesis.cancel();
+ }
+
+ document.getElementById("aiStatus").textContent=
+  "Assistant Online";
+
+}
+
+/* =================================
+   INITIALIZE WEBSITE
+================================= */
+
+updateDashboard();
+updateGoal();
+
+</script>
+
+</body>
+</html>
